@@ -4,19 +4,37 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Event Scheduler</title>
-        <link rel="stylesheet" href="style.css">
+        <title>Global Weather Forecast</title>
+        <link rel="stylesheet" href="style.css" />
     </head>
 
     <body>
         <header>
+            <h1 style="text-align: center;"><strong>Weather Forecast</strong></h1>
         </header>
 
         <main>
+            <aside class="search-menu">
+                <label for="search-bar" style="font-size: 25px; margin-left: 5px;">Search City</label><br>
+                <input id="search-bar" type="input" placeholder="Type Here...." style="width: 85%; height: 30px; font-size: 20px; margin-top: 10px; margin-bottom: 10px; margin-left: 5px;"/><br>
+                <button style="width: 35%; height: 27px; font-size: 13px; margin-bottom: 10px; margin-left: 5px;">Search</button>
+                <hr style="width: 100%;"><br>
+                <br>
+                <p style="text-align: center; background-color: rgb(69, 219, 219); width: 80%; margin-left: 6%; font-size: 20px; border-radius: 3%; padding-top: 1%; padding-bottom: 1%;">City 1</p><br>
+                
+            </aside>
+
+            <section>
+                <h2 id="todays-forecast" style="border-style: solid; text-align: center;">Today's Forecast</h2>
+            </section>
+
+            <section>
+                <h2 id="todays-forecast1" style="border-style: solid; text-align: center;">Forecast for the next 5 days</h2>
+            </section>
         </main>
 
         <footer>
         </footer>
-    <script type="text/javascript" src="script.js"></script>
+        <script type="text/javascript" src="script.js"></script>
     </body>
 </html>
