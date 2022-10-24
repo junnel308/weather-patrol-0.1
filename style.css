@@ -6,8 +6,9 @@
 
 body {
     width: 100%;
-    margin: 0;
-    padding: 0;
+    height: 100px;
+    background: url(./assets/images/BackgroundWeather.png);
+    background-size: cover;
 }
 
 header {
@@ -21,13 +22,57 @@ h1 {
     padding-top: 15px;
 }
 
+p {
+    text-align: center;
+    font-size: 25px;
+    
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color:  #467ccc;
+    color: white;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    padding: 5px;
+    text-align: center;
+    width: 80%; 
+    margin-left: 6%; 
+    font-size: 20px; 
+    border-radius: 4%; 
+    padding-top: 1%; 
+    padding-bottom: 1%;
+}
+
+li:hover {
+    background-color: #5978a5;
+}
+
+li:before {
+    content: "\200B";
+    position: absolute;
+  }
+  
+li::after {
+    content: " ";
+    display: block;
+    clear: both;
+  }
+
 .search-menu {
     position: absolute;
     top: 2.5;
     left: 0;
     width: 25%;
-    height: 100%;
-    background-color: beige;
+    height: 52.5%;
+    overflow: auto;
+}
+
+#clear-button {
+   width: 100%;
 }
 
 #todays-forecast {
