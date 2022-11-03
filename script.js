@@ -5,7 +5,8 @@ var formSubmit = document.querySelector("#search-menu");
 var clearButton = document.querySelector("#clear-button");
 
 var list = [];
-let currentWeather ="https://api.openweathermap.org/data/2.5/weather?";
+let geocodeLocation = "http://api.openweathermap.org/geo/1.0/direct?q=";
+let currentWeather ="https://api.openweathermap.org/data/2.5/weather?q=";
 var fiveWeatherURL = "https://api.openweathermap.org/data/2.5/forecast?q=";
 let APIKey = "d892b80803c13c51aae98dd4ffa32610";
 
@@ -49,6 +50,14 @@ function init() {
     if (userInput === "") {
       return;
     }
+
+    let geoUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=${userInput}&appid=${APIKey}'
+
+    fetch(geoUrl)
+    .then(res => res.json())
+    .then(geoData => {
+      console.log(geoData);
+    })
   
     // Add new todoText to todos array, clear the input
     list.push(userInput);
@@ -67,13 +76,6 @@ function init() {
 
   init()
 
-  fetch(currentWeather)
-  .then(res => res.json())
-  .then(cityList => renderCurrentDisplay(cityList.name[0]));
 
-
-  function renderCurrentDisplay (data) {
-    
-  }
 
   
