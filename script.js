@@ -5,6 +5,10 @@ var formSubmit = document.querySelector("#search-menu");
 var clearButton = document.querySelector("#clear-button");
 
 var list = [];
+let currentWeather ="https://api.openweathermap.org/data/2.5/weather?";
+var fiveWeatherURL = "https://api.openweathermap.org/data/2.5/forecast?q=";
+let APIKey = "d892b80803c13c51aae98dd4ffa32610";
+
 
 function displayCities() {
 
@@ -15,10 +19,6 @@ function displayCities() {
         li.textContent = listed;
 
         cityList.appendChild(li);
-
-        if(i >= 5) {
-            localStorage.removeItem("list)");
-        }
     }
 }
 
@@ -66,5 +66,14 @@ function init() {
   })
 
   init()
+
+  fetch(currentWeather)
+  .then(res => res.json())
+  .then(cityList => renderCurrentDisplay(cityList.name[0]));
+
+
+  function renderCurrentDisplay (data) {
+    
+  }
 
   
