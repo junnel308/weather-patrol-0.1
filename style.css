@@ -28,6 +28,7 @@ h2 {
 
 }
 p {
+    display: block;
     text-align: left;
     font-size: 15px;
     padding: 10px
@@ -55,10 +56,6 @@ li {
     padding-bottom: 1%;
 }
 
-li:hover {
-    background-color: #5978a5;
-}
-
 li:before {
     content: "\200B";
     position: absolute;
@@ -74,7 +71,6 @@ li::after {
     float: left;
     width: 25%;
     height: 100%;
-    overflow: auto;
 }
 
 #clear-button {
@@ -82,10 +78,11 @@ li::after {
 }
 
 #todays-forecast {
+    display: block;
     width: 71.5%;
-    float: left;
     height: 25%;
     margin-right: 1%;
+    background-color: #5583c9;
 }
 
 #todays-forecast1,
@@ -93,12 +90,21 @@ li::after {
 #todays-forecast3,
 #todays-forecast4,
 #todays-forecast5 {
+    display: block;
     width: 13.5%;
-    float: left;
     height: 100%;
     margin-right: 1%;
     margin-top: 1%;
-    border-style: solid;
+    background-color: rgb(107, 176, 236);
+}
+
+#todays-forecast6 {
+    border: none;
+    width: 71.5%;
+}
+
+img {
+    float: right;
 }
 
 
