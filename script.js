@@ -11,44 +11,12 @@ let todaysForecast4 = document.getElementById("todays-forecast4");
 let todaysForecast5 = document.getElementById("todays-forecast5");
 let savedCities = JSON.parse(localStorage.getItem("list")) || [];
 
-var list = [];
+
 let currentWeatherData ='https://api.openweathermap.org/data/2.5/weather?q=';
 let currentWeather ='https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=298a7fbb0e1f26ad78c570cfb48a026b';
 var fiveWeatherURL = "https://api.openweathermap.org/data/2.5/forecast?q=";
 let APIKey = '298a7fbb0e1f26ad78c570cfb48a026b';
 
-
-
-function displayCities() {
-    cityList.innerHTML = "";
-    for (var i = 0; i < list.length; i++) {
-        var listed = list[i];
-
-    
-        var li = document.createElement("li");
-        li.textContent = listed;
-        cityList.appendChild(li);
-
-
-    }
-}
-
-function init() {
-    var storedCities = JSON.parse(localStorage.getItem("list"));
-  
-    // If todos were retrieved from localStorage, update the todos array to it
-    if (storedCities !== null) {
-      list = storedCities;
-    }
-    
-    // This is a helper function that will render todos to the DOM
-    displayCities();
-  }
-  
-  function storeTodos() {
-    // Stringify and set key in localStorage to todos array
-    localStorage.setItem("list", JSON.stringify(list));
-  }
   
   // Add submit event to form
   submitButton.addEventListener("click", function(event) {
@@ -61,11 +29,18 @@ function init() {
       return;
     }
 
-    if(userInput == "") {
-      return;
-    }
 
+      var li = document.createElement("li");
+      if(savedCities.indexOf(userInput) == -1){
+      savedCities.push(userInput);
+      li.textContent = userInput;
+      cityList.appendChild(li);
+      localStorage.setItem("list", JSON.stringify(savedCities))
+      }
+  
 
+    document.querySelector(".todays-forecast6").style.display = "block";
+    document.querySelector(".todays-forecast7").style.display = "block";
     
     let Url = currentWeatherData + userInput+ '&appid=298a7fbb0e1f26ad78c570cfb48a026b';
     let fiveDayUrl = fiveWeatherURL + userInput + '&appid=298a7fbb0e1f26ad78c570cfb48a026b';
@@ -73,9 +48,7 @@ function init() {
     fetch(Url)
     .then(res => res.json())
     .then(data => {
-      console.log(data)
       renderCurrentWeather(data);
-
     })
 
     fetch(fiveDayUrl)
@@ -88,15 +61,6 @@ function init() {
       renderFiveDayForecast3(futureData)
       renderFiveDayForecast4(futureData)
     })
-   
-    
-    // Add new todoText to todos array, clear the input
-    if(list.indexOf(userInput) == -1) {
-    list.push(userInput);
-    // Store updated todos in localStorage, re-render the list
-    storeTodos();
-    displayCities();
-    }
     
   });
 
@@ -104,14 +68,45 @@ function init() {
     localStorage.removeItem("list");
   })
 
-  init()
+  for(let i=0; i < savedCities.length; i++) {
+    let storeMe = document.createElement("li")
+    storeMe.textContent = savedCities[i];
+    cityList.appendChild(storeMe);
 
+    storeMe.addEventListener("click", () => {
+      let Url1 = currentWeatherData + savedCities[i] + '&appid=298a7fbb0e1f26ad78c570cfb48a026b';
+      let fiveDayUrl1 = fiveWeatherURL + savedCities[i] + '&appid=298a7fbb0e1f26ad78c570cfb48a026b';
+
+      document.querySelector(".todays-forecast6").style.display = "block";
+      document.querySelector(".todays-forecast7").style.display = "block";
+
+      fetch(Url1)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        renderCurrentWeather(data)
+      })
+
+      fetch(fiveDayUrl1)
+      .then (res => res.json())
+      .then (futureData => {
+        console.log(futureData)
+        renderFiveDayForecast(futureData)
+        renderFiveDayForecast1(futureData)
+        renderFiveDayForecast2(futureData)
+        renderFiveDayForecast3(futureData)
+        renderFiveDayForecast4(futureData)
+      })
+    }) 
+  }
+
+  
   function renderCurrentWeather (data) {
     console.log(data)
     todaysForecast.innerHTML = "";
     let weatherName = data.name;
     let date = new Date();
-    let todaysDate = "(" + (date.getMonth()+1) +"/"+ date.getDay() +"/"+ date.getFullYear() + ")";
+    let todaysDate = "(" + (date.getMonth()+1) +"/"+ (date.getDay()-1) +"/"+ date.getFullYear() + ")";
     let weatherIcon = data.weather[0].icon;
     let weatherPic = 'https://openweathermap.org/img/wn/' + weatherIcon + '.png';
     let weatherTemp = data.main.temp_max;

@@ -31,7 +31,7 @@ p {
     display: block;
     text-align: left;
     font-size: 15px;
-    padding: 10px
+    padding: 8px
     
 }
 ul {
@@ -39,6 +39,7 @@ ul {
     padding: 0;
     text-align: left;
     padding: 10px;
+    font-size: 20px;
 }
 
 li {
@@ -56,6 +57,11 @@ li {
     padding-bottom: 1%;
 }
 
+li:hover {
+    background-color: #5583c9;
+    cursor: pointer;
+}
+
 li:before {
     content: "\200B";
     position: absolute;
@@ -70,7 +76,7 @@ li::after {
 .search-menu {
     float: left;
     width: 25%;
-    height: 100%;
+    max-width: 100%;
 }
 
 #clear-button {
@@ -79,7 +85,7 @@ li::after {
 
 #todays-forecast {
     display: block;
-    width: 71.5%;
+    width: 74%;
     height: 25%;
     margin-right: 1%;
     background-color: #5583c9;
@@ -91,14 +97,23 @@ li::after {
 #todays-forecast4,
 #todays-forecast5 {
     display: block;
-    width: 13.5%;
-    height: 100%;
+    float: right;
+    width: 74%;
+    max-height: 25%;
     margin-right: 1%;
     margin-top: 1%;
     background-color: rgb(107, 176, 236);
+    overflow: scroll;
 }
 
-#todays-forecast6 {
+.todays-forecast6 {
+    display: none;
+    border: none;
+    width: 71.5%;
+}
+
+.todays-forecast7 {
+    display: none;
     border: none;
     width: 71.5%;
 }
