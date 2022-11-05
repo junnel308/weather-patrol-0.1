@@ -5,6 +5,10 @@ var formSubmit = document.querySelector("#search-menu");
 var clearButton = document.querySelector("#clear-button");
 let todaysForecast = document.getElementById("todays-forecast");
 let todaysForecast1 = document.getElementById("todays-forecast1");
+let todaysForecast2 = document.getElementById("todays-forecast2");
+let todaysForecast3 = document.getElementById("todays-forecast3");
+let todaysForecast4 = document.getElementById("todays-forecast4");
+let todaysForecast5 = document.getElementById("todays-forecast5");
 let savedCities = JSON.parse(localStorage.getItem("list")) || [];
 
 var list = [];
@@ -15,7 +19,7 @@ let APIKey = '298a7fbb0e1f26ad78c570cfb48a026b';
 
 
 function displayCities() {
-
+    cityList.innerHTML = "";
     for (var i = 0; i < list.length; i++) {
         var listed = list[i];
 
@@ -75,9 +79,13 @@ function init() {
 
     fetch(fiveDayUrl)
     .then (res => res.json())
-    .then (data => {
-      console.log(data)
-      renderFiveDayForecast(data);
+    .then (futureData => {
+      console.log(futureData)
+      renderFiveDayForecast(futureData)
+      renderFiveDayForecast1(futureData)
+      renderFiveDayForecast2(futureData)
+      renderFiveDayForecast3(futureData)
+      renderFiveDayForecast4(futureData)
     })
 
     
@@ -131,20 +139,128 @@ function init() {
 
   }
 
-  function renderFiveDayForecast(data) {
-    let weatherTemp = data.main.temp_max;
-    let weatherHumid = data.main.humidity;
-    let weatherWind = data.wind.speed;
+  function renderFiveDayForecast(futureData) {
+    todaysForecast1.innerHTML = "";
+    let futureDate = futureData.list[7].dt_txt;
+    let formatDate = new Date(futureDate).toLocaleDateString('en-US');
+    let futureTemp = futureData.list[7].main.temp_max;
+    let futureHumid = futureData.list[7].main.humidity;
+    let futureWind = futureData.list[7].wind.speed;
 
-    let weatherTempEl = document.createElement("p");
-    weatherTempEl.textContent ="Temperature:" +" "+ weatherTemp +" "+ "℉";
-    todaysForecast1.appendChild(weatherTempEl);
+    let futureDateEl = document.createElement("ul");
+    futureDateEl.textContent = formatDate;
+    todaysForecast1.appendChild(futureDateEl);
+
+    let futureTempEl = document.createElement("p");
+    futureTempEl.textContent ="Temperature:" +" "+ futureTemp +" "+ "℉";
+    todaysForecast1.appendChild(futureTempEl);
     
-    let weatherWindEl = document.createElement("p");
-    weatherWindEl.textContent = "Wind:" + " " + weatherWind + " " + "MPH";
-    todaysForecast1.appendChild(weatherWindEl);
+    let futureWindEl = document.createElement("p");
+    futureWindEl.textContent = "Wind:" + " " + futureWind + " " + "MPH";
+    todaysForecast1.appendChild(futureWindEl);
 
-    let weatherHumidEl = document.createElement("p");
-    weatherHumidEl.textContent = "Humid:" + " " + weatherHumid + " " + "%";
-    todaysForecast1.appendChild(weatherHumidEl)
+    let futureHumidEl = document.createElement("p");
+    futureHumidEl.textContent = "Humid:" + " " + futureHumid + " " + "%";
+    todaysForecast1.appendChild(futureHumidEl)
   }
+
+  function renderFiveDayForecast1(futureData) {
+    todaysForecast2.innerHTML = "";
+    let futureDate = futureData.list[15].dt_txt;
+    let formatDate = new Date(futureDate).toLocaleDateString('en-US');
+    let futureTemp = futureData.list[15].main.temp_max;
+    let futureHumid = futureData.list[15].main.humidity;
+    let futureWind = futureData.list[15].wind.speed;
+
+    let futureDateEl = document.createElement("ul");
+    futureDateEl.textContent = formatDate;
+    todaysForecast2.appendChild(futureDateEl);
+
+    let futureTempEl = document.createElement("p");
+    futureTempEl.textContent ="Temperature:" +" "+ futureTemp +" "+ "℉";
+    todaysForecast2.appendChild(futureTempEl);
+    
+    let futureWindEl = document.createElement("p");
+    futureWindEl.textContent = "Wind:" + " " + futureWind + " " + "MPH";
+    todaysForecast2.appendChild(futureWindEl);
+
+    let futureHumidEl = document.createElement("p");
+    futureHumidEl.textContent = "Humid:" + " " + futureHumid + " " + "%";
+    todaysForecast2.appendChild(futureHumidEl)
+  }
+
+  function renderFiveDayForecast2(futureData) {
+    todaysForecast3.innerHTML = "";
+    let futureDate = futureData.list[23].dt_txt;
+    let formatDate = new Date(futureDate).toLocaleDateString('en-US');
+    let futureTemp = futureData.list[23].main.temp_max;
+    let futureHumid = futureData.list[23].main.humidity;
+    let futureWind = futureData.list[23].wind.speed;
+
+    let futureDateEl = document.createElement("ul");
+    futureDateEl.textContent = formatDate;
+    todaysForecast3.appendChild(futureDateEl);
+
+    let futureTempEl = document.createElement("p");
+    futureTempEl.textContent ="Temperature:" +" "+ futureTemp +" "+ "℉";
+    todaysForecast3.appendChild(futureTempEl);
+    
+    let futureWindEl = document.createElement("p");
+    futureWindEl.textContent = "Wind:" + " " + futureWind + " " + "MPH";
+    todaysForecast3.appendChild(futureWindEl);
+
+    let futureHumidEl = document.createElement("p");
+    futureHumidEl.textContent = "Humid:" + " " + futureHumid + " " + "%";
+    todaysForecast3.appendChild(futureHumidEl)
+  }
+
+  function renderFiveDayForecast3(futureData) {
+    todaysForecast4.innerHTML = "";
+    let futureDate = futureData.list[31].dt_txt;
+    let formatDate = new Date(futureDate).toLocaleDateString('en-US');
+    let futureTemp = futureData.list[31].main.temp_max;
+    let futureHumid = futureData.list[31].main.humidity;
+    let futureWind = futureData.list[31].wind.speed;
+
+    let futureDateEl = document.createElement("ul");
+    futureDateEl.textContent = formatDate;
+    todaysForecast4.appendChild(futureDateEl);
+
+    let futureTempEl = document.createElement("p");
+    futureTempEl.textContent ="Temperature:" +" "+ futureTemp +" "+ "℉";
+    todaysForecast4.appendChild(futureTempEl);
+    
+    let futureWindEl = document.createElement("p");
+    futureWindEl.textContent = "Wind:" + " " + futureWind + " " + "MPH";
+    todaysForecast4.appendChild(futureWindEl);
+
+    let futureHumidEl = document.createElement("p");
+    futureHumidEl.textContent = "Humid:" + " " + futureHumid + " " + "%";
+    todaysForecast4.appendChild(futureHumidEl)
+  }
+
+  function renderFiveDayForecast4(futureData) {
+    todaysForecast5.innerHTML = "";
+    let futureDate = futureData.list[39].dt_txt;
+    let formatDate = new Date(futureDate).toLocaleDateString('en-US');
+    let futureTemp = futureData.list[39].main.temp_max;
+    let futureHumid = futureData.list[39].main.humidity;
+    let futureWind = futureData.list[39].wind.speed;
+
+    let futureDateEl = document.createElement("ul");
+    futureDateEl.textContent = formatDate;
+    todaysForecast5.appendChild(futureDateEl);
+
+    let futureTempEl = document.createElement("p");
+    futureTempEl.textContent ="Temperature:" +" "+ futureTemp +" "+ "℉";
+    todaysForecast5.appendChild(futureTempEl);
+    
+    let futureWindEl = document.createElement("p");
+    futureWindEl.textContent = "Wind:" + " " + futureWind + " " + "MPH";
+    todaysForecast5.appendChild(futureWindEl);
+
+    let futureHumidEl = document.createElement("p");
+    futureHumidEl.textContent = "Humid:" + " " + futureHumid + " " + "%";
+    todaysForecast5.appendChild(futureHumidEl)
+  }
+  
