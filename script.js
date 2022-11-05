@@ -36,6 +36,27 @@ let APIKey = '298a7fbb0e1f26ad78c570cfb48a026b';
       li.textContent = userInput;
       cityList.appendChild(li);
       localStorage.setItem("list", JSON.stringify(savedCities))
+
+      li.addEventListener("click",() => {
+        let Url2 = currentWeatherData + userInput+ '&appid=298a7fbb0e1f26ad78c570cfb48a026b';
+        let fiveDayUrl2 = fiveWeatherURL + userInput + '&appid=298a7fbb0e1f26ad78c570cfb48a026b';
+
+        fetch(Url2)
+        .then(res => res.json())
+        .then(data => {
+        renderCurrentWeather(data);
+      })
+      fetch(fiveDayUrl2)
+      .then (res => res.json())
+      .then (futureData => {
+      console.log(futureData)
+      renderFiveDayForecast(futureData)
+      renderFiveDayForecast1(futureData)
+      renderFiveDayForecast2(futureData)
+      renderFiveDayForecast3(futureData)
+      renderFiveDayForecast4(futureData)
+    })
+      })
       }
   
 
