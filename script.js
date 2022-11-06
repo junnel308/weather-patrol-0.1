@@ -38,14 +38,18 @@ let APIKey = '298a7fbb0e1f26ad78c570cfb48a026b';
       localStorage.setItem("list", JSON.stringify(savedCities))
 
       li.addEventListener("click",() => {
-        let Url2 = currentWeatherData + userInput+ '&appid=298a7fbb0e1f26ad78c570cfb48a026b';
-        let fiveDayUrl2 = fiveWeatherURL + userInput + '&appid=298a7fbb0e1f26ad78c570cfb48a026b';
+        let Url2 = currentWeatherData + userInput+ "&units=imperial" + '&appid=298a7fbb0e1f26ad78c570cfb48a026b';
+        let fiveDayUrl2 = fiveWeatherURL + userInput + "&units=imperial" + '&appid=298a7fbb0e1f26ad78c570cfb48a026b';
 
         fetch(Url2)
         .then(res => res.json())
         .then(data => {
         renderCurrentWeather(data);
       })
+      .catch(error => {
+        noCityFound(error)
+      });
+
       fetch(fiveDayUrl2)
       .then (res => res.json())
       .then (futureData => {
@@ -55,7 +59,9 @@ let APIKey = '298a7fbb0e1f26ad78c570cfb48a026b';
       renderFiveDayForecast2(futureData)
       renderFiveDayForecast3(futureData)
       renderFiveDayForecast4(futureData)
-    })
+      })
+      .catch(error => console.log(error));
+
       })
       }
   
@@ -63,14 +69,15 @@ let APIKey = '298a7fbb0e1f26ad78c570cfb48a026b';
     document.querySelector(".todays-forecast6").style.display = "block";
     document.querySelector(".todays-forecast7").style.display = "block";
     
-    let Url = currentWeatherData + userInput+ '&appid=298a7fbb0e1f26ad78c570cfb48a026b';
-    let fiveDayUrl = fiveWeatherURL + userInput + '&appid=298a7fbb0e1f26ad78c570cfb48a026b';
+    let Url = currentWeatherData + userInput+ "&units=imperial" + '&appid=298a7fbb0e1f26ad78c570cfb48a026b';
+    let fiveDayUrl = fiveWeatherURL + userInput + "&units=imperial" + '&appid=298a7fbb0e1f26ad78c570cfb48a026b';
 
     fetch(Url)
     .then(res => res.json())
     .then(data => {
       renderCurrentWeather(data);
     })
+    .catch(error => console.log(error));
 
     fetch(fiveDayUrl)
     .then (res => res.json())
@@ -82,7 +89,8 @@ let APIKey = '298a7fbb0e1f26ad78c570cfb48a026b';
       renderFiveDayForecast3(futureData)
       renderFiveDayForecast4(futureData)
     })
-    
+    .catch(error => console.log(error));
+
   });
 
   clearButton.addEventListener("click", () => {
@@ -95,8 +103,8 @@ let APIKey = '298a7fbb0e1f26ad78c570cfb48a026b';
     cityList.appendChild(storeMe);
 
     storeMe.addEventListener("click", () => {
-      let Url1 = currentWeatherData + savedCities[i] + '&appid=298a7fbb0e1f26ad78c570cfb48a026b';
-      let fiveDayUrl1 = fiveWeatherURL + savedCities[i] + '&appid=298a7fbb0e1f26ad78c570cfb48a026b';
+      let Url1 = currentWeatherData + savedCities[i] + "&units=imperial" + '&appid=298a7fbb0e1f26ad78c570cfb48a026b';
+      let fiveDayUrl1 = fiveWeatherURL + savedCities[i] + "&units=imperial" + '&appid=298a7fbb0e1f26ad78c570cfb48a026b';
 
       document.querySelector(".todays-forecast6").style.display = "block";
       document.querySelector(".todays-forecast7").style.display = "block";
@@ -107,6 +115,7 @@ let APIKey = '298a7fbb0e1f26ad78c570cfb48a026b';
         console.log(data);
         renderCurrentWeather(data)
       })
+      .catch(error => console.log(error));
 
       fetch(fiveDayUrl1)
       .then (res => res.json())
@@ -118,6 +127,7 @@ let APIKey = '298a7fbb0e1f26ad78c570cfb48a026b';
         renderFiveDayForecast3(futureData)
         renderFiveDayForecast4(futureData)
       })
+      .catch(error => console.log(error));
     }) 
   }
 
@@ -127,7 +137,7 @@ let APIKey = '298a7fbb0e1f26ad78c570cfb48a026b';
     todaysForecast.innerHTML = "";
     let weatherName = data.name;
     let date = new Date();
-    let todaysDate = "(" + (date.getMonth()+1) +"/"+ (date.getDay()-1) +"/"+ date.getFullYear() + ")";
+    let todaysDate = date.toLocaleDateString('en-US');
     let weatherIcon = data.weather[0].icon;
     let weatherPic = 'https://openweathermap.org/img/wn/' + weatherIcon + '.png';
     let weatherTemp = data.main.temp_max;
@@ -309,4 +319,3 @@ let APIKey = '298a7fbb0e1f26ad78c570cfb48a026b';
     futureHumidEl.textContent = "Humid:" + " " + futureHumid + " " + "%";
     todaysForecast5.appendChild(futureHumidEl)
   }
-  
