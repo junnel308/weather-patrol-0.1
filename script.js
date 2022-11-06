@@ -3,6 +3,7 @@ var submitButton = document.querySelector("#submit-button");
 var searchBar = document.querySelector("#search-bar");
 var formSubmit = document.querySelector("#search-menu");
 var clearButton = document.querySelector("#clear-button");
+var searchCity = document.getElementById("previous-searches1")
 let todaysForecast = document.getElementById("todays-forecast");
 let todaysForecast1 = document.getElementById("todays-forecast1");
 let todaysForecast2 = document.getElementById("todays-forecast2");
@@ -21,15 +22,12 @@ let APIKey = '298a7fbb0e1f26ad78c570cfb48a026b';
   // Add submit event to form
   submitButton.addEventListener("click", function(event) {
     event.preventDefault();
+    var userInput = searchBar.value;
   
-    var userInput = searchBar.value.trim();
-  
-    // Return from function early if submitted todoText is blank
-    if (userInput === "") {
-      return;
+    if(userInput == "") {
+      searchCity.textContent = "No City Found, Please Try Again!";
     }
-
-
+    // Return from function early if submitted todoText is blank
       var li = document.createElement("li");
       if(savedCities.indexOf(userInput) == -1){
       savedCities.push(userInput);
@@ -44,11 +42,31 @@ let APIKey = '298a7fbb0e1f26ad78c570cfb48a026b';
         fetch(Url2)
         .then(res => res.json())
         .then(data => {
-        renderCurrentWeather(data);
+        if(data.name == userInput){
+          searchBar.value = "";
+          searchCity.innerHTML = "";
+          renderCurrentWeather(data);
+          document.querySelector(".todays-forecast6").style.display = "block";
+          document.querySelector(".todays-forecast7").style.display = "block";
+        }else if (data.name == li.textContent){
+          searchCity.innerHTML = "";
+        }
+         else {
+          searchBar.value = "";
+          searchCity.textContent = "No City Found, Please Try Again!";
+          li.style.backgroundColor = "red";
+          li.textContent = userInput +""+ "(Not Found)"
+          todaysForecast.innerHTML = "";
+          todaysForecast1.innerHTML = "";
+          todaysForecast2.innerHTML = "";
+          todaysForecast3.innerHTML = "";
+          todaysForecast4.innerHTML = "";
+          todaysForecast5.innerHTML = "";
+          document.querySelector(".todays-forecast6").style.display = "none";
+          document.querySelector(".todays-forecast7").style.display = "none";
+        }
       })
-      .catch(error => {
-        noCityFound(error)
-      });
+      .catch(error => console.log(error));
 
       fetch(fiveDayUrl2)
       .then (res => res.json())
@@ -63,19 +81,39 @@ let APIKey = '298a7fbb0e1f26ad78c570cfb48a026b';
       .catch(error => console.log(error));
 
       })
-      }
-  
+    
+      } 
+    
 
     document.querySelector(".todays-forecast6").style.display = "block";
     document.querySelector(".todays-forecast7").style.display = "block";
     
     let Url = currentWeatherData + userInput+ "&units=imperial" + '&appid=298a7fbb0e1f26ad78c570cfb48a026b';
     let fiveDayUrl = fiveWeatherURL + userInput + "&units=imperial" + '&appid=298a7fbb0e1f26ad78c570cfb48a026b';
-
+  
     fetch(Url)
     .then(res => res.json())
     .then(data => {
-      renderCurrentWeather(data);
+      if(data.name == userInput){
+        searchBar.value = "";
+        searchCity.innerHTML = "";
+        renderCurrentWeather(data);
+        document.querySelector(".todays-forecast6").style.display = "block";
+        document.querySelector(".todays-forecast7").style.display = "block";
+      } else {
+        searchBar.value = "";
+        searchCity.textContent = "No City Found, Please Try Again!";
+        li.style.backgroundColor = "red";
+        li.textContent = userInput + "(Not Found)"
+        todaysForecast.innerHTML = "";
+        todaysForecast1.innerHTML = "";
+        todaysForecast2.innerHTML = "";
+        todaysForecast3.innerHTML = "";
+        todaysForecast4.innerHTML = "";
+        todaysForecast5.innerHTML = "";
+        document.querySelector(".todays-forecast6").style.display = "none";
+        document.querySelector(".todays-forecast7").style.display = "none";
+      }
     })
     .catch(error => console.log(error));
 
@@ -101,6 +139,38 @@ let APIKey = '298a7fbb0e1f26ad78c570cfb48a026b';
     let storeMe = document.createElement("li")
     storeMe.textContent = savedCities[i];
     cityList.appendChild(storeMe);
+    let Url1 = currentWeatherData + savedCities[i] + "&units=imperial" + '&appid=298a7fbb0e1f26ad78c570cfb48a026b';
+    let fiveDayUrl1 = fiveWeatherURL + savedCities[i] + "&units=imperial" + '&appid=298a7fbb0e1f26ad78c570cfb48a026b';
+
+    fetch(Url1)
+      .then(res => res.json())
+      .then(data => {
+        if(data.name == savedCities[i]){
+          searchBar.value = "";
+          searchCity.innerHTML = "";
+          renderCurrentWeather(data);
+          document.querySelector(".todays-forecast6").style.display = "block";
+          document.querySelector(".todays-forecast7").style.display = "block";
+        }else {
+          searchBar.value = "";
+          searchCity.textContent = "No City Found, Please Try Again!";
+          storeMe.style.backgroundColor = "red";
+          storeMe.textContent = savedCities[i] +" "+"(Not Found)"
+        }
+      })
+      .catch(error => console.log(error));
+
+      fetch(fiveDayUrl1)
+      .then (res => res.json())
+      .then (futureData => {
+        console.log(futureData)
+        renderFiveDayForecast(futureData)
+        renderFiveDayForecast1(futureData)
+        renderFiveDayForecast2(futureData)
+        renderFiveDayForecast3(futureData)
+        renderFiveDayForecast4(futureData)
+      })
+      .catch(error => console.log(error));
 
     storeMe.addEventListener("click", () => {
       let Url1 = currentWeatherData + savedCities[i] + "&units=imperial" + '&appid=298a7fbb0e1f26ad78c570cfb48a026b';
@@ -112,8 +182,24 @@ let APIKey = '298a7fbb0e1f26ad78c570cfb48a026b';
       fetch(Url1)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
-        renderCurrentWeather(data)
+        if(data.name == savedCities[i]){
+          searchBar.value = "";
+          searchCity.innerHTML = "";
+          renderCurrentWeather(data);
+        }else {
+          searchBar.value = "";
+          searchCity.textContent = "No City Found, Please Try Again!";
+          storeMe.style.backgroundColor = "red";
+          storeMe.textContent = savedCities[i] + "(Not Found)"
+          todaysForecast.innerHTML = "";
+          todaysForecast1.innerHTML = "";
+          todaysForecast2.innerHTML = "";
+          todaysForecast3.innerHTML = "";
+          todaysForecast4.innerHTML = "";
+          todaysForecast5.innerHTML = "";
+          document.querySelector(".todays-forecast6").style.display = "none";
+          document.querySelector(".todays-forecast7").style.display = "none";
+        }
       })
       .catch(error => console.log(error));
 
@@ -143,6 +229,7 @@ let APIKey = '298a7fbb0e1f26ad78c570cfb48a026b';
     let weatherTemp = data.main.temp_max;
     let weatherHumid = data.main.humidity;
     let weatherWind = data.wind.speed;
+
     
     let weatherIconEl = document.createElement("img");
     weatherIconEl.src = weatherPic;
@@ -164,7 +251,6 @@ let APIKey = '298a7fbb0e1f26ad78c570cfb48a026b';
     let weatherHumidEl = document.createElement("p");
     weatherHumidEl.textContent = "Humid:" + " " + weatherHumid + " " + "%";
     todaysForecast.appendChild(weatherHumidEl)
-
 
   }
 
@@ -319,3 +405,4 @@ let APIKey = '298a7fbb0e1f26ad78c570cfb48a026b';
     futureHumidEl.textContent = "Humid:" + " " + futureHumid + " " + "%";
     todaysForecast5.appendChild(futureHumidEl)
   }
+
