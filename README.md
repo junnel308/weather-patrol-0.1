@@ -15,7 +15,7 @@ https://junnel308.github.io/weather-patrol-0.1/
 
 ## Screenshots
 
-<img src="./assets/images/weather-app1.png" />
+<img src="./assets/images/weather-app2.png" />
 
 ## Credits
 
